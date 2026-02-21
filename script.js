@@ -85,7 +85,7 @@ function updateCalcDisplay(command, button_name, entry)
             calc_state.big_number = calc_state.big_number.slice(0, -1);
             calc_state.internal_operation = calc_state.internal_operation.slice(0, -1);
         break
-        
+
         case "delete current entry":
 /*             calc_state[entry] = ""; */   //wip
             break              
@@ -181,10 +181,10 @@ function triggerButton(button_name)
                 
                 if (tryTriggerCalculation())
                 {
-                    calc_state.result = eval(calc_state.internal_operation);
-                    calc_state.big_number = String(calc_state.result);
+                    calc_state.result = String(eval(calc_state.internal_operation));
+                    calc_state.big_number = calc_state.result;
                     calc_state.small_number = calc_state.result + button_name;
-                    calc_state.internal_operation = calc_state.small_number;
+                    calc_state.internal_operation = calc_state.small_number + calc_state.big_number;
                 }
                 else
                 {
