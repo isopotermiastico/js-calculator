@@ -27,8 +27,17 @@ function isOperator(value)
 }
 
 
+function formatNumber(numStr, size) {
+    if (numStr.length <= size) return numStr;
 
+    const num = Number(numStr);
 
+    if (!isNaN(num)) {
+        return num.toPrecision(size);
+    }
+
+    return numStr.slice(0, size);
+}
 
 
 
@@ -47,7 +56,7 @@ function updateCalcDisplay(command, button_name, entry)
     internal_operation_dom.textContent = calc_state.calc_step; //also debugging
 
     small_number_dom.textContent = calc_state.small_number;
-    big_number_dom.textContent = calc_state.big_number;
+    big_number_dom.textContent = formatNumber(calc_state.big_number, 8);
 
 }
 
@@ -152,6 +161,44 @@ function triggerButton(button_name)
                 break
             
             case ".":
+                /* if (calc_state.big_number.slice(-1) === ".")
+                    {
+                        return;
+                    }
+
+                switch (calc_state.calc_step)
+                {
+                    case 0: 
+                        if (calc_state.big_number === "0")
+                            {
+                                calc_state.first_operand = "0.";
+                                calc_state.small_number = calc_state.first_operand;
+                            }
+                            else
+                            {
+                                calc_state.first_operand += button_name;
+                            }
+                        calc_state.big_number += button_name;
+                        
+                        
+
+                        break
+                    case 1: 
+
+                        break
+                    case 2: 
+                        if (calc_state.big_number === "0")
+                            {
+                                calc_state.second_operand = "0.";
+                                calc_state.small_number = calc_state.second_operand;
+                            }
+                            else
+                            {
+                                calc_state.second_operand += button_name;
+                            }
+                        calc_state.big_number += button_name;
+                        break
+                } */
                 break
 
             case "+":
@@ -253,7 +300,13 @@ function triggerButton(button_name)
                             calc_state.calc_step++;
                             break
                         case 1:
-        
+                            if (calc_state.operator === "")
+                                {
+                                    result = String(eval(buttonToEvalReady(button_name, calc_state.first_operand)));  
+                                    calc_state.first_operand = result;
+                                    calc_state.small_number = buttonToDisplayReady(button_name, calc_state.big_number);
+                                    calc_state.big_number = result;
+                                }
                             break
                         case 2:
                             result = String(eval(buttonToEvalReady(button_name, calc_state.second_operand)));  

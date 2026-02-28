@@ -20,7 +20,7 @@ body
 .wrapper
 {
     display: flex;
-    height: 90dvh;
+    height: 600px;
     aspect-ratio: 9/16;
     justify-content: center;
     align-items: center;
